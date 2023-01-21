@@ -12,6 +12,11 @@ file_name ="./assets/TSXData.json"
 with open(file_name,"r") as json_file:
     data = iter(json.loads(json_file.read()))
 
+@app.get("/")
+async def root():
+    print("Hello world is printing")
+    return {"message":"hello world"}
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -19,4 +24,6 @@ async def websocket_endpoint(websocket: WebSocket):
         await asyncio.sleep(0.1)
         payload = next(data)
         await websocket.send_json(payload)
+
+
 
